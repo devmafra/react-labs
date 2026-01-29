@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: #fff;
+  box-sizing: border-box;
+}
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+}
+.icon {
+  margin-right: 1px;
+  vertical-align: middle;
+}
