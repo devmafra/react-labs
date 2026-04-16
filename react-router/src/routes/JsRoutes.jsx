@@ -7,6 +7,7 @@ import { NotFound } from "../pages/NotFound";
 import { Products } from "../pages/Products";
 import { Details } from "../pages/Details";
 import { Layout } from "../pages/Layout";
+import { InfoProducts } from "../pages/InfoProducts";
 
 export function JsRoutes() {
   const routes = useRoutes([
@@ -19,6 +20,7 @@ export function JsRoutes() {
         { path: "contact", element: <Contact /> },
         { path: "products", element: <Products /> },
         { path: "products/:id", element: <Details /> },
+        { path: "products/:id/info", element: <InfoProducts /> },
       ],
     },
     { path: "*", element: <NotFound /> },
