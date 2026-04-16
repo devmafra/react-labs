@@ -6,15 +6,19 @@ import { Contact } from "../pages/Contact";
 import { NotFound } from "../pages/NotFound";
 import { Products } from "../pages/Products";
 import { Details } from "../pages/Details";
+import { Layout } from "../pages/Layout";
 
 export function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" index element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/products" element={<Products />} />
-      <Route path="/products/:id" element={<Details />} />
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="contact" element={<Contact />} />
+        <Route path="products" element={<Products />} />
+        <Route path="products/:id" element={<Details />} />
+      </Route>
+
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
