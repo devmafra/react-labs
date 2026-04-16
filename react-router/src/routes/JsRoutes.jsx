@@ -8,6 +8,9 @@ import { Products } from "../pages/Products";
 import { Details } from "../pages/Details";
 import { Layout } from "../pages/Layout";
 import { InfoProducts } from "../pages/InfoProducts";
+import { Login } from "../pages/Login";
+import { PrivateRoute } from "./PrivateRoute";
+import { Admin } from "../pages/Admin";
 
 export function JsRoutes() {
   const routes = useRoutes([
@@ -22,6 +25,15 @@ export function JsRoutes() {
         { path: "products/:id", element: <Details /> },
         { path: "products/:id/info", element: <InfoProducts /> },
       ],
+    },
+    { path: "/login", element: <Login /> },
+    {
+      path: "/admin",
+      element: (
+        <PrivateRoute>
+          <Admin />
+        </PrivateRoute>
+      ),
     },
     { path: "*", element: <NotFound /> },
   ]);
