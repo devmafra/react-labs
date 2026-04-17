@@ -1,6 +1,14 @@
 import React from "react";
 
-export function InputField({ name, label, type, autoComplete, error }) {
+export function InputField({
+  id,
+  name,
+  label,
+  type,
+  autoComplete,
+  error,
+  register,
+}) {
   return (
     <div className="mb-4">
       <label htmlFor={name} className="block mb-1 font-medium">
