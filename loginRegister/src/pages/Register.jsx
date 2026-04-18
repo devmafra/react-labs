@@ -2,11 +2,46 @@ import React from "react";
 import { InputField } from "../components/InputField";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object({
+  name: yup.string().required("Nome é obrigatório"),
+  email: yup.string().required("Email é obrigatório").email("Email inválido"),
+  password: yup
+    .string()
+    .required("Senha é obrigatória")
+    .min(6, "Mínimo 6 caracteres"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "As senhas não conferem")
+    .required("Confirmação é obrigatória"),
+});
 
 export function Register() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    defaultValues: { name: "", email: "", password: "", confirmPassword: "" },
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = (data) => {
+    console.log(data);
+
+    alert("Conta criada com sucesso!");
+
+    reset();
+  };
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
-      <form className="bg-white p-8 rounded-2xl shadow-md w-96 ">
+      <form
+        className="bg-white p-8 rounded-2xl shadow-md w-96 "
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
 
         <InputField
@@ -15,7 +50,8 @@ export function Register() {
           label="Nome"
           type="text"
           autoComplete="username"
-          register={() => {}}
+          register={register}
+          error={errors.name}
         />
         <InputField
           id="email"
@@ -23,7 +59,8 @@ export function Register() {
           label="Email"
           type="email"
           autoComplete="email"
-          register={() => {}}
+          register={register}
+          error={errors.email}
         />
         <InputField
           id="password"
@@ -31,7 +68,8 @@ export function Register() {
           label="Senha"
           type="password"
           autoComplete="new-password"
-          register={() => {}}
+          register={register}
+          error={errors.password}
         />
         <InputField
           id="confirmPassword"
@@ -39,7 +77,8 @@ export function Register() {
           label="Confirmar Senha"
           type="password"
           autoComplete="new-password"
-          register={() => {}}
+          register={register}
+          error={errors.confirmPassword}
         />
         <button
           type="submit"
