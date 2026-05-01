@@ -1,9 +1,9 @@
-import React from "react";
-import { InputField } from "../components/InputField";
-import { useForm } from "react-hook-form";
-import { Link } from "react-router";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useLocation, useNavigate } from "react-router";
 import * as yup from "yup";
+import { InputField } from "../components/InputField";
 
 const schema = yup.object({
   name: yup.string().required("Nome é obrigatório"),
@@ -19,22 +19,43 @@ const schema = yup.object({
 });
 
 export function Register() {
+  const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.message) {
+      setMessage(location.state.message);
+    }
+  }, [location]);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     defaultValues: { name: "", email: "", password: "", confirmPassword: "" },
     resolver: yupResolver(schema),
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    alert("Conta criada com sucesso!");
+    const exists = users.find((user) => user.email === data.email);
 
-    reset();
+    if (exists) {
+      setMessage("Email já está cadastrado");
+      return;
+    }
+
+    users.push({ name: data.name, email: data.email, password: data.password });
+
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("Conta criada com sucesso");
+    navigate("/login");
   };
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
@@ -43,6 +64,8 @@ export function Register() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
+
+        {message && <p className="text-red-500">{message}</p>}
 
         <InputField
           id="name"
