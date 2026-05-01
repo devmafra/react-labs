@@ -1,7 +1,11 @@
-# Magazine HashtagR
+# Magazine Store
+
 ## Descrição
+
 Uma plataforma de e-commerce completa com catálogo de produtos, carrinho de compras, checkout e histórico de pedidos.
+
 ## Tecnologias
+
 - React
 - React Router
 - TailwindCSS
@@ -9,5 +13,7 @@ Uma plataforma de e-commerce completa com catálogo de produtos, carrinho de com
 - Zod
 - FontAwesome
 - Vite
+
 ## Como rodar
+
 npm install && npm run dev.
