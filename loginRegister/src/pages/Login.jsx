@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { InputField } from "../components/InputField";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
@@ -14,21 +14,44 @@ const schema = yup.object({
 });
 
 export function Login() {
+  const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.message) {
+      setMessage(location.state.message);
+    }
+  }, [location]);
+
   const {
     handleSubmit,
     register,
-    formState: { errors },
     reset,
+    formState: { errors },
   } = useForm({
     defaultValues: { email: "", password: "" },
     resolver: yupResolver(schema),
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    alert("Login realizado com sucesso!");
+    const user = users.find(
+      (user) => user.email === data.email && user.password === data.password,
+    );
 
+    if (user) {
+      setMessage("");
+      alert("Login realizado com sucesso");
+      navigate("/");
+    } else {
+      navigate("/register", {
+        state: { message: "Crie uma conta para continuar" },
+      });
+    }
     reset();
   };
   return (
@@ -38,6 +61,8 @@ export function Login() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+
+        {message && <p className="text-red-500">{message}</p>}
 
         <InputField
           id="email"
