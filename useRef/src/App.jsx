@@ -2,12 +2,14 @@ import { useEffect, useRef, useState } from "react";
 
 export default function App() {
   const scrollRef = useRef(null);
-  const elemento = scrollRef.current;
-  const pRef = useRef(null);
   const [scrollPorcentagem, setScrollPorcentagem] = useState(0);
 
   useEffect(() => {
     //Função ser chamada toda vez que o usuário rolar o container
+
+    //Acessa o elemento diretamente
+    const elemento = scrollRef.current;
+
     function handleScroll() {
       //Extrai propriedades do elemento DOM que temos a referência
       const { scrollTop, scrollHeight, clientHeight } = elemento;
@@ -21,9 +23,6 @@ export default function App() {
       //Arrendondar o valor e atualizar o estado
       setScrollPorcentagem(Math.round(totalRolado));
     }
-
-    //Acessa o elemento diretamente
-    const elemento = scrollRef.current;
 
     //Adicionar ouvinte de evento
     elemento.addEventListener("scroll", handleScroll);
