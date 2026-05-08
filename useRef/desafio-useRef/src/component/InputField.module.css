@@ -1,0 +1,27 @@
+.inputField {
+  width: 100%;
+  border-radius: 2rem;
+  background-color: azure;
+  color: black;
+  padding: 0.5rem;
+  border: none;
+}
+.inputField:focus {
+  border: 2px solid rgb(91, 195, 226);
+  outline: none;
+}
+.inputButton {
+  margin: 1rem;
+  border-radius: 2rem;
+  padding: 0.5rem 1rem;
+  background-color: rgb(91, 195, 226);
+  border: none;
+}
+.inputButton:hover {
+  background-color: rgb(107, 210, 241);
+}
+.container {
+  width: 500px;
+  margin: 50px auto;
+  text-align: center;
+}
