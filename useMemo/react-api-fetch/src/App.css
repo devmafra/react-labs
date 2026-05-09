@@ -1,0 +1,35 @@
+/* Estilo geral da aplicação */
+.app {
+  padding: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+/* Estilo do botão */
+.btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+/* Estilo do card que exibe os cards */
+.card {
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.card h2 {
+  color: #555;
+}
+
+.card p {
+  color: #666;
+}
